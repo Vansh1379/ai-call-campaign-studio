@@ -1,10 +1,11 @@
 import { useState } from "react";
+import { motion } from "framer-motion";
 import { StatusBadge } from "@/components/StatusBadge";
 import { BusinessContextCard } from "@/components/BusinessContextCard";
 import { CallSetupCard } from "@/components/CallSetupCard";
 import { CallActionsCard } from "@/components/CallActionsCard";
 import { CallStatusCard } from "@/components/CallStatusCard";
-import { Zap } from "lucide-react";
+import { Zap, Sparkles } from "lucide-react";
 
 type CallState = "idle" | "calling" | "completed";
 
@@ -58,7 +59,7 @@ const Index = () => {
         },
         ...callLogs,
       ]);
-    }, 3000);
+    }, 8000);
   };
 
   const handleCallMe = () => {
@@ -67,58 +68,143 @@ const Index = () => {
   };
 
   const handlePreviewScript = () => {
-    // Mock preview action
     console.log("Preview script clicked");
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background relative overflow-hidden">
+      {/* Background effects */}
+      <div className="fixed inset-0 bg-gradient-dark pointer-events-none" />
+      <div className="fixed inset-0 bg-noise pointer-events-none" />
+      
+      {/* Ambient glow orbs */}
+      <motion.div
+        className="fixed top-0 left-1/4 w-[600px] h-[600px] rounded-full pointer-events-none"
+        style={{
+          background: "radial-gradient(circle, hsl(var(--primary) / 0.08) 0%, transparent 70%)",
+        }}
+        animate={{ 
+          x: [0, 50, 0],
+          y: [0, 30, 0],
+        }}
+        transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <motion.div
+        className="fixed bottom-0 right-1/4 w-[500px] h-[500px] rounded-full pointer-events-none"
+        style={{
+          background: "radial-gradient(circle, hsl(var(--accent) / 0.06) 0%, transparent 70%)",
+        }}
+        animate={{ 
+          x: [0, -30, 0],
+          y: [0, -40, 0],
+        }}
+        transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
+      />
+
       {/* Top Navigation Bar */}
-      <header className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-50">
-        <div className="max-w-6xl mx-auto px-6 py-4">
+      <motion.header 
+        className="border-b border-border/50 bg-card/30 backdrop-blur-xl sticky top-0 z-50"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        <div className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="p-2 rounded-lg bg-primary/10">
+            <motion.div 
+              className="flex items-center gap-3"
+              whileHover={{ scale: 1.02 }}
+            >
+              <div className="p-2 rounded-xl bg-gradient-to-br from-primary/20 to-accent/10 border border-primary/20">
                 <Zap className="w-5 h-5 text-primary" />
               </div>
-              <span className="font-semibold text-foreground">Paradigm Outreach</span>
-            </div>
-            <div className="flex items-center gap-4">
-              <nav className="hidden md:flex items-center gap-6 text-sm text-muted-foreground">
-                <a href="#" className="hover:text-foreground transition-colors">Campaigns</a>
-                <a href="#" className="text-foreground font-medium">AI Calls</a>
-                <a href="#" className="hover:text-foreground transition-colors">Analytics</a>
-                <a href="#" className="hover:text-foreground transition-colors">Settings</a>
+              <span className="font-bold text-foreground text-lg">Paradigm Outreach</span>
+            </motion.div>
+            <div className="flex items-center gap-6">
+              <nav className="hidden md:flex items-center gap-8 text-sm">
+                {["Campaigns", "AI Calls", "Analytics", "Settings"].map((item, index) => (
+                  <motion.a
+                    key={item}
+                    href="#"
+                    className={`transition-colors relative ${
+                      item === "AI Calls" 
+                        ? "text-foreground font-medium" 
+                        : "text-muted-foreground hover:text-foreground"
+                    }`}
+                    whileHover={{ y: -1 }}
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                  >
+                    {item}
+                    {item === "AI Calls" && (
+                      <motion.div
+                        className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary rounded-full"
+                        layoutId="activeNav"
+                      />
+                    )}
+                  </motion.a>
+                ))}
               </nav>
-              <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-sm font-medium text-primary">
+              <motion.div 
+                className="w-9 h-9 rounded-xl bg-gradient-to-br from-primary/30 to-accent/20 flex items-center justify-center text-sm font-semibold text-primary border border-primary/20"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
                 JD
-              </div>
+              </motion.div>
             </div>
           </div>
         </div>
-      </header>
+      </motion.header>
 
       {/* Main Content */}
-      <main className="max-w-6xl mx-auto px-6 py-8">
+      <main className="relative z-10 max-w-7xl mx-auto px-6 py-10">
         {/* Page Header */}
-        <div className="mb-8">
+        <motion.div 
+          className="mb-10"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        >
           <div className="flex items-start justify-between">
             <div>
-              <h1 className="text-2xl font-bold text-foreground mb-2">
-                Outbound AI Call Campaign
-              </h1>
-              <p className="text-muted-foreground">
-                Configure and launch AI-powered sales calls that represent your business
-              </p>
+              <motion.h1 
+                className="text-4xl font-extrabold text-foreground mb-3 flex items-center gap-3"
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5, delay: 0.3 }}
+              >
+                <span className="text-gradient">Outbound AI Call Campaign</span>
+                <motion.div
+                  animate={{ rotate: [0, 15, 0] }}
+                  transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                >
+                  <Sparkles className="w-8 h-8 text-primary" />
+                </motion.div>
+              </motion.h1>
+              <motion.p 
+                className="text-lg text-muted-foreground"
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5, delay: 0.4 }}
+              >
+                AI-powered phone calls that sell for you
+              </motion.p>
             </div>
-            <StatusBadge status={isReady ? "ready" : "draft"} />
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5, delay: 0.5 }}
+            >
+              <StatusBadge status={isReady ? (callState === "calling" ? "calling" : callState === "completed" ? "completed" : "ready") : "draft"} />
+            </motion.div>
           </div>
-        </div>
+        </motion.div>
 
         {/* Content Grid */}
-        <div className="grid lg:grid-cols-2 gap-6">
+        <div className="grid lg:grid-cols-2 gap-8">
           {/* Left Column */}
-          <div className="space-y-6">
+          <div className="space-y-8">
             <BusinessContextCard
               companyName={companyName}
               setCompanyName={setCompanyName}
@@ -132,7 +218,7 @@ const Index = () => {
           </div>
 
           {/* Right Column */}
-          <div className="space-y-6">
+          <div className="space-y-8">
             <CallSetupCard
               phoneNumber={phoneNumber}
               setPhoneNumber={setPhoneNumber}
