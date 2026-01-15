@@ -44,8 +44,9 @@ export default function Home() {
   // Modal
   const [isScriptModalOpen, setIsScriptModalOpen] = useState(false);
 
-  const isReady =
-    companyName && companyDescription && (phoneNumber || callMyNumber);
+  const isReady = !!(
+    companyName && companyDescription && (phoneNumber || callMyNumber)
+  );
 
   const handleStartCall = () => {
     if (!isReady) return;
@@ -259,6 +260,7 @@ export default function Home() {
               onStartCall={handleStartCall}
               onCallMe={handleCallMe}
               onPreviewScript={handlePreviewScript}
+              isReady={isReady}
             />
 
             <CallStatusCard callState={callState} logs={callLogs} />

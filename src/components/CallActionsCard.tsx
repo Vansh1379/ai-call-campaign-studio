@@ -1,5 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { PhoneCall, PhoneIncoming, FileText, Check, Zap } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 
 type CallState = "idle" | "calling" | "completed";
 
@@ -8,6 +9,7 @@ interface CallActionsCardProps {
   onStartCall: () => void;
   onCallMe: () => void;
   onPreviewScript: () => void;
+  isReady: boolean;
 }
 
 function WaveformAnimation() {
@@ -37,7 +39,34 @@ export function CallActionsCard({
   onStartCall,
   onCallMe,
   onPreviewScript,
+  isReady,
 }: CallActionsCardProps) {
+  const { toast } = useToast();
+
+  const handleStartCallClick = () => {
+    if (!isReady) {
+      toast({
+        title: "Form Incomplete",
+        description: "Please fill in all required fields: Company Name, Company Description, and Phone Number.",
+        variant: "destructive",
+      });
+      return;
+    }
+    onStartCall();
+  };
+
+  const handleCallMeClick = () => {
+    if (!isReady) {
+      toast({
+        title: "Form Incomplete",
+        description: "Please fill in all required fields: Company Name, Company Description, and Phone Number.",
+        variant: "destructive",
+      });
+      return;
+    }
+    onCallMe();
+  };
+
   return (
     <motion.div
       className="card-elevated card-glow relative"
@@ -89,11 +118,11 @@ export function CallActionsCard({
 
         <div className="flex flex-wrap gap-3">
           <motion.button
-            onClick={onStartCall}
+            onClick={handleStartCallClick}
             disabled={callState === "calling"}
-            className="btn-primary min-w-[140px]"
-            whileHover={{ scale: callState === "calling" ? 1 : 1.02 }}
-            whileTap={{ scale: callState === "calling" ? 1 : 0.98 }}
+            className={`btn-primary min-w-[140px] ${!isReady ? 'opacity-60 cursor-not-allowed' : ''}`}
+            whileHover={{ scale: callState === "calling" || !isReady ? 1 : 1.02 }}
+            whileTap={{ scale: callState === "calling" || !isReady ? 1 : 0.98 }}
           >
             <AnimatePresence mode="wait">
               {callState === "idle" && (
@@ -142,11 +171,11 @@ export function CallActionsCard({
           </motion.button>
 
           <motion.button
-            onClick={onCallMe}
+            onClick={handleCallMeClick}
             disabled={callState === "calling"}
-            className="btn-secondary"
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
+            className={`btn-secondary ${!isReady ? 'opacity-60 cursor-not-allowed' : ''}`}
+            whileHover={{ scale: !isReady ? 1 : 1.02 }}
+            whileTap={{ scale: !isReady ? 1 : 0.98 }}
           >
             <PhoneIncoming className="w-4 h-4" />
             Call Me Now
