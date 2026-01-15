@@ -31,7 +31,7 @@ export function StatusBadge({ status, className }: StatusBadgeProps) {
   const config = statusConfig[status];
 
   return (
-    <motion.span 
+    <motion.span
       className={cn(config.className, className)}
       initial={{ opacity: 0, scale: 0.9 }}
       animate={{ opacity: 1, scale: 1 }}
@@ -44,7 +44,7 @@ export function StatusBadge({ status, className }: StatusBadgeProps) {
         </span>
       )}
       {status === "completed" && (
-        <motion.span 
+        <motion.span
           className="w-2 h-2 rounded-full bg-success mr-2"
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}

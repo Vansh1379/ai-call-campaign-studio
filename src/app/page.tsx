@@ -14,18 +14,15 @@ import { Sparkles } from "lucide-react";
 type CallState = "idle" | "calling" | "completed";
 
 export default function Home() {
-  // Business context state
   const [companyName, setCompanyName] = useState("");
   const [companyDescription, setCompanyDescription] = useState("");
   const [salesPitch, setSalesPitch] = useState("");
   const [tone, setTone] = useState("professional");
 
-  // Call setup state
   const [phoneNumber, setPhoneNumber] = useState("");
   const [callMyNumber, setCallMyNumber] = useState(false);
   const [callType, setCallType] = useState("outbound");
 
-  // Call state
   const [callState, setCallState] = useState<CallState>("idle");
   const [callLogs, setCallLogs] = useState([
     {
@@ -44,15 +41,16 @@ export default function Home() {
     },
   ]);
 
-  // Modal state
+  // Modal
   const [isScriptModalOpen, setIsScriptModalOpen] = useState(false);
 
-  const isReady = companyName && companyDescription && (phoneNumber || callMyNumber);
+  const isReady =
+    companyName && companyDescription && (phoneNumber || callMyNumber);
 
   const handleStartCall = () => {
     if (!isReady) return;
     setCallState("calling");
-    
+
     // Simulate call completion
     setTimeout(() => {
       setCallState("completed");
@@ -80,17 +78,16 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-background relative overflow-hidden">
-      {/* Background effects */}
       <div className="fixed inset-0 bg-gradient-dark pointer-events-none" />
       <div className="fixed inset-0 bg-noise pointer-events-none" />
-      
-      {/* Ambient glow orbs */}
+
       <motion.div
         className="fixed top-0 left-1/4 w-[600px] h-[600px] rounded-full pointer-events-none"
         style={{
-          background: "radial-gradient(circle, hsl(var(--primary) / 0.08) 0%, transparent 70%)",
+          background:
+            "radial-gradient(circle, hsl(var(--primary) / 0.08) 0%, transparent 70%)",
         }}
-        animate={{ 
+        animate={{
           x: [0, 50, 0],
           y: [0, 30, 0],
         }}
@@ -99,17 +96,18 @@ export default function Home() {
       <motion.div
         className="fixed bottom-0 right-1/4 w-[500px] h-[500px] rounded-full pointer-events-none"
         style={{
-          background: "radial-gradient(circle, hsl(var(--accent) / 0.06) 0%, transparent 70%)",
+          background:
+            "radial-gradient(circle, hsl(var(--accent) / 0.06) 0%, transparent 70%)",
         }}
-        animate={{ 
+        animate={{
           x: [0, -30, 0],
           y: [0, -40, 0],
         }}
         transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
       />
 
-      {/* Top Navigation Bar */}
-      <motion.header 
+      {/* navbar */}
+      <motion.header
         className="border-b border-border/50 bg-card/30 backdrop-blur-xl sticky top-0 z-50"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -117,48 +115,52 @@ export default function Home() {
       >
         <div className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
-            <motion.div 
+            <motion.div
               className="flex items-center gap-3"
               whileHover={{ scale: 1.02 }}
             >
               <div className="p-2 rounded-xl bg-gradient-to-br from-primary/20 to-accent/10 border border-primary/20">
-                <Image 
-                  src="/image.png" 
-                  alt="Paradigm Outreach Logo" 
-                  width={20} 
+                <Image
+                  src="/image.png"
+                  alt="Paradigm Outreach Logo"
+                  width={20}
                   height={20}
                   className="w-5 h-5"
                 />
               </div>
-              <span className="font-bold text-foreground text-lg">Paradigm Outreach</span>
+              <span className="font-bold text-foreground text-lg">
+                Paradigm Outreach
+              </span>
             </motion.div>
             <div className="flex items-center gap-6">
               <nav className="hidden md:flex items-center gap-8 text-sm">
-                {["Campaigns", "AI Calls", "Analytics", "Settings"].map((item, index) => (
-                  <motion.a
-                    key={item}
-                    href="#"
-                    className={`transition-colors relative ${
-                      item === "AI Calls" 
-                        ? "text-foreground font-medium" 
-                        : "text-muted-foreground hover:text-foreground"
-                    }`}
-                    whileHover={{ y: -1 }}
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.1 }}
-                  >
-                    {item}
-                    {item === "AI Calls" && (
-                      <motion.div
-                        className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary rounded-full"
-                        layoutId="activeNav"
-                      />
-                    )}
-                  </motion.a>
-                ))}
+                {["Campaigns", "AI Calls", "Analytics", "Settings"].map(
+                  (item, index) => (
+                    <motion.a
+                      key={item}
+                      href="#"
+                      className={`transition-colors relative ${
+                        item === "AI Calls"
+                          ? "text-foreground font-medium"
+                          : "text-muted-foreground hover:text-foreground"
+                      }`}
+                      whileHover={{ y: -1 }}
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: index * 0.1 }}
+                    >
+                      {item}
+                      {item === "AI Calls" && (
+                        <motion.div
+                          className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary rounded-full"
+                          layoutId="activeNav"
+                        />
+                      )}
+                    </motion.a>
+                  )
+                )}
               </nav>
-              <motion.div 
+              <motion.div
                 className="w-9 h-9 rounded-xl bg-gradient-to-br from-primary/30 to-accent/20 flex items-center justify-center text-sm font-semibold text-primary border border-primary/20"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -173,7 +175,7 @@ export default function Home() {
       {/* Main Content */}
       <main className="relative z-10 max-w-7xl mx-auto px-6 py-10">
         {/* Page Header */}
-        <motion.div 
+        <motion.div
           className="mb-10"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -181,7 +183,7 @@ export default function Home() {
         >
           <div className="flex items-start justify-between">
             <div>
-              <motion.h1 
+              <motion.h1
                 className="text-4xl font-extrabold text-foreground mb-3 flex items-center gap-3"
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -190,12 +192,16 @@ export default function Home() {
                 <span className="text-gradient">Outbound AI Call Campaign</span>
                 <motion.div
                   animate={{ rotate: [0, 15, 0] }}
-                  transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                  transition={{
+                    duration: 2,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
                 >
                   <Sparkles className="w-8 h-8 text-primary" />
                 </motion.div>
               </motion.h1>
-              <motion.p 
+              <motion.p
                 className="text-lg text-muted-foreground"
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -209,14 +215,22 @@ export default function Home() {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5, delay: 0.5 }}
             >
-              <StatusBadge status={isReady ? (callState === "calling" ? "calling" : callState === "completed" ? "completed" : "ready") : "draft"} />
+              <StatusBadge
+                status={
+                  isReady
+                    ? callState === "calling"
+                      ? "calling"
+                      : callState === "completed"
+                      ? "completed"
+                      : "ready"
+                    : "draft"
+                }
+              />
             </motion.div>
           </div>
         </motion.div>
 
-        {/* Content Grid */}
         <div className="grid lg:grid-cols-2 gap-8">
-          {/* Left Column */}
           <div className="space-y-8">
             <BusinessContextCard
               companyName={companyName}
@@ -230,7 +244,6 @@ export default function Home() {
             />
           </div>
 
-          {/* Right Column */}
           <div className="space-y-8">
             <CallSetupCard
               phoneNumber={phoneNumber}
@@ -253,7 +266,6 @@ export default function Home() {
         </div>
       </main>
 
-      {/* AI Script Preview Modal */}
       <AIScriptPreviewModal
         open={isScriptModalOpen}
         onOpenChange={setIsScriptModalOpen}

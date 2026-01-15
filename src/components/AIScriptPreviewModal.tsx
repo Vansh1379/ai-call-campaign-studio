@@ -34,21 +34,21 @@ export function AIScriptPreviewModal({
   const [isRegenerating, setIsRegenerating] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
-  
+
   const generateScript = () => {
     const company = companyName || "Your Company";
     const description = companyDescription || "innovative solutions";
     const pitch = salesPitch || "our amazing products and services";
-    
+
     const toneIntros: Record<string, string> = {
       professional: `Good [morning/afternoon], this is calling from ${company}.`,
       friendly: `Hey there! This is from ${company}. How are you doing today?`,
       sales: `Hi! I'm reaching out from ${company} with an exciting opportunity.`,
       casual: `Hey! Quick call from ${company}. Got a minute?`,
     };
-    
+
     const intro = toneIntros[tone] || toneIntros.professional;
-    
+
     return `${intro}
 
 I wanted to reach out because ${description}.
@@ -70,7 +70,7 @@ Thank you for your time today. Have a wonderful [day/evening]!`;
 
   const handleRegenerate = () => {
     setIsRegenerating(true);
-    
+
     // Simulate AI regeneration
     setTimeout(() => {
       setScript(generateScript());
@@ -81,7 +81,7 @@ Thank you for your time today. Have a wonderful [day/evening]!`;
 
   const handleSave = () => {
     setIsSaving(true);
-    
+
     // Simulate saving
     setTimeout(() => {
       setIsSaving(false);
@@ -95,7 +95,7 @@ Thank you for your time today. Have a wonderful [day/evening]!`;
       await navigator.clipboard.writeText(script);
       setIsCopied(true);
       toast.success("Script copied to clipboard!");
-      
+
       setTimeout(() => {
         setIsCopied(false);
       }, 2000);
@@ -181,7 +181,7 @@ Thank you for your time today. Have a wonderful [day/evening]!`;
               {isCopied ? "Copied!" : "Copy"}
             </Button>
           </div>
-          
+
           <Textarea
             value={script}
             onChange={(e) => setScript(e.target.value)}
@@ -199,7 +199,11 @@ Thank you for your time today. Have a wonderful [day/evening]!`;
           >
             <motion.div
               animate={isRegenerating ? { rotate: 360 } : {}}
-              transition={{ duration: 1, repeat: isRegenerating ? Infinity : 0, ease: "linear" }}
+              transition={{
+                duration: 1,
+                repeat: isRegenerating ? Infinity : 0,
+                ease: "linear",
+              }}
             >
               <RefreshCw className="w-4 h-4" />
             </motion.div>
@@ -207,10 +211,7 @@ Thank you for your time today. Have a wonderful [day/evening]!`;
           </Button>
 
           <div className="flex gap-2">
-            <Button
-              variant="ghost"
-              onClick={() => onOpenChange(false)}
-            >
+            <Button variant="ghost" onClick={() => onOpenChange(false)}>
               Close
             </Button>
             <Button

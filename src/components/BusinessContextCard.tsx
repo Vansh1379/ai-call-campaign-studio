@@ -40,7 +40,7 @@ export function BusinessContextCard({
   }, [companyName, companyDescription, salesPitch]);
 
   return (
-    <motion.div 
+    <motion.div
       className="card-elevated card-glow"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
@@ -49,10 +49,10 @@ export function BusinessContextCard({
     >
       {/* Ambient glow */}
       <div className="absolute -top-20 -right-20 w-40 h-40 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
-      
+
       <div className="relative z-10">
         <div className="flex items-center gap-3 mb-6">
-          <motion.div 
+          <motion.div
             className="p-2.5 rounded-xl bg-gradient-to-br from-primary/20 to-accent/10 border border-primary/20"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
@@ -64,12 +64,18 @@ export function BusinessContextCard({
               Business Context
               <Sparkles className="w-4 h-4 text-primary/60" />
             </h2>
-            <p className="helper-text">Define how the AI represents your company</p>
+            <p className="helper-text">
+              Define how the AI represents your company
+            </p>
           </div>
         </div>
 
         <div className="space-y-5">
-          <div className={`input-glow ${focusedField === 'companyName' ? 'relative' : ''}`}>
+          <div
+            className={`input-glow ${
+              focusedField === "companyName" ? "relative" : ""
+            }`}
+          >
             <label className="block text-sm font-medium text-foreground mb-2">
               Company Name
             </label>
@@ -77,7 +83,7 @@ export function BusinessContextCard({
               type="text"
               value={companyName}
               onChange={(e) => setCompanyName(e.target.value)}
-              onFocus={() => setFocusedField('companyName')}
+              onFocus={() => setFocusedField("companyName")}
               onBlur={() => setFocusedField(null)}
               placeholder="Acme Corporation"
               className="input-field w-full"
@@ -85,14 +91,18 @@ export function BusinessContextCard({
             />
           </div>
 
-          <div className={`input-glow ${focusedField === 'description' ? 'relative' : ''}`}>
+          <div
+            className={`input-glow ${
+              focusedField === "description" ? "relative" : ""
+            }`}
+          >
             <label className="block text-sm font-medium text-foreground mb-2">
               What does your company do?
             </label>
             <motion.textarea
               value={companyDescription}
               onChange={(e) => setCompanyDescription(e.target.value)}
-              onFocus={() => setFocusedField('description')}
+              onFocus={() => setFocusedField("description")}
               onBlur={() => setFocusedField(null)}
               placeholder="We provide enterprise software solutions for..."
               rows={3}
@@ -101,7 +111,11 @@ export function BusinessContextCard({
             />
           </div>
 
-          <div className={`input-glow ${focusedField === 'pitch' ? 'relative' : ''}`}>
+          <div
+            className={`input-glow ${
+              focusedField === "pitch" ? "relative" : ""
+            }`}
+          >
             <label className="block text-sm font-medium text-foreground mb-2">
               Sales pitch / talking points
             </label>
@@ -109,14 +123,14 @@ export function BusinessContextCard({
               <motion.textarea
                 value={salesPitch}
                 onChange={(e) => setSalesPitch(e.target.value)}
-                onFocus={() => setFocusedField('pitch')}
+                onFocus={() => setFocusedField("pitch")}
                 onBlur={() => setFocusedField(null)}
                 placeholder="Key benefits, unique selling points, call-to-action..."
                 rows={5}
                 className="input-field w-full resize-none"
                 whileFocus={{ scale: 1.01 }}
               />
-              {focusedField === 'pitch' && !salesPitch && (
+              {focusedField === "pitch" && !salesPitch && (
                 <motion.span
                   className="absolute top-3 left-4 text-muted-foreground pointer-events-none"
                   initial={{ opacity: 0 }}
@@ -137,7 +151,9 @@ export function BusinessContextCard({
                 <motion.button
                   key={option.value}
                   onClick={() => setTone(option.value)}
-                  className={`tone-pill ${tone === option.value ? 'active' : ''}`}
+                  className={`tone-pill ${
+                    tone === option.value ? "active" : ""
+                  }`}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
@@ -148,7 +164,7 @@ export function BusinessContextCard({
           </div>
         </div>
 
-        <motion.p 
+        <motion.p
           className="helper-text mt-6 pt-5 border-t border-border/50 flex items-center gap-2"
           initial={{ opacity: 0 }}
           animate={{ opacity: showHelper ? 1 : 0.5 }}

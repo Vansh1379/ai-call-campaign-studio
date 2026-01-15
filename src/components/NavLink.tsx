@@ -5,7 +5,8 @@ import { usePathname } from "next/navigation";
 import { forwardRef, AnchorHTMLAttributes } from "react";
 import { cn } from "@/lib/utils";
 
-interface NavLinkProps extends Omit<AnchorHTMLAttributes<HTMLAnchorElement>, "href"> {
+interface NavLinkProps
+  extends Omit<AnchorHTMLAttributes<HTMLAnchorElement>, "href"> {
   href: string;
   className?: string;
   activeClassName?: string;
@@ -13,7 +14,10 @@ interface NavLinkProps extends Omit<AnchorHTMLAttributes<HTMLAnchorElement>, "hr
 }
 
 const NavLink = forwardRef<HTMLAnchorElement, NavLinkProps>(
-  ({ className, activeClassName, href, exact = false, children, ...props }, ref) => {
+  (
+    { className, activeClassName, href, exact = false, children, ...props },
+    ref
+  ) => {
     const pathname = usePathname();
     const isActive = exact ? pathname === href : pathname.startsWith(href);
 
@@ -27,7 +31,7 @@ const NavLink = forwardRef<HTMLAnchorElement, NavLinkProps>(
         {children}
       </Link>
     );
-  },
+  }
 );
 
 NavLink.displayName = "NavLink";

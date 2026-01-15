@@ -66,7 +66,9 @@ function LiveTranscript({ isActive }: { isActive: boolean }) {
             />
           ))}
         </div>
-        <span className="text-xs font-medium text-primary uppercase tracking-wide">Live Transcript</span>
+        <span className="text-xs font-medium text-primary uppercase tracking-wide">
+          Live Transcript
+        </span>
       </div>
       <div className="space-y-2 max-h-32 overflow-hidden">
         <AnimatePresence>
@@ -77,7 +79,13 @@ function LiveTranscript({ isActive }: { isActive: boolean }) {
               animate={{ opacity: 1, x: 0 }}
               className="flex gap-2"
             >
-              <span className={`text-xs font-medium ${line.speaker === "AI" ? "text-primary" : "text-muted-foreground"}`}>
+              <span
+                className={`text-xs font-medium ${
+                  line.speaker === "AI"
+                    ? "text-primary"
+                    : "text-muted-foreground"
+                }`}
+              >
                 {line.speaker}:
               </span>
               <span className="text-xs text-foreground/80">{line.text}</span>
@@ -91,14 +99,14 @@ function LiveTranscript({ isActive }: { isActive: boolean }) {
 
 function AIIndicator() {
   return (
-    <motion.div 
+    <motion.div
       className="flex items-center gap-2 p-3 rounded-xl bg-primary/10 border border-primary/20"
-      animate={{ 
+      animate={{
         boxShadow: [
           "0 0 0px hsl(var(--primary) / 0)",
           "0 0 20px hsl(var(--primary) / 0.2)",
-          "0 0 0px hsl(var(--primary) / 0)"
-        ]
+          "0 0 0px hsl(var(--primary) / 0)",
+        ],
       }}
       transition={{ duration: 2, repeat: Infinity }}
     >
@@ -109,13 +117,17 @@ function AIIndicator() {
         <Mic className="w-4 h-4 text-primary" />
       </motion.div>
       <div className="flex-1">
-        <div className="text-sm font-medium text-foreground">AI Agent Speaking</div>
+        <div className="text-sm font-medium text-foreground">
+          AI Agent Speaking
+        </div>
         <div className="flex items-center gap-1 mt-1">
           {[...Array(12)].map((_, i) => (
             <motion.div
               key={i}
               className="w-1 bg-primary rounded-full"
-              animate={{ height: ["4px", `${8 + Math.random() * 12}px`, "4px"] }}
+              animate={{
+                height: ["4px", `${8 + Math.random() * 12}px`, "4px"],
+              }}
               transition={{ duration: 0.5, repeat: Infinity, delay: i * 0.05 }}
             />
           ))}
@@ -127,7 +139,7 @@ function AIIndicator() {
 
 export function CallStatusCard({ callState, logs }: CallStatusCardProps) {
   return (
-    <motion.div 
+    <motion.div
       className="card-elevated card-glow"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
@@ -136,11 +148,15 @@ export function CallStatusCard({ callState, logs }: CallStatusCardProps) {
     >
       <div className="relative z-10">
         <div className="flex items-center gap-3 mb-6">
-          <motion.div 
+          <motion.div
             className="p-2.5 rounded-xl bg-gradient-to-br from-primary/20 to-accent/10 border border-primary/20"
-            animate={callState === "calling" ? {
-              scale: [1, 1.1, 1],
-            } : {}}
+            animate={
+              callState === "calling"
+                ? {
+                    scale: [1, 1.1, 1],
+                  }
+                : {}
+            }
             transition={{ duration: 1, repeat: Infinity }}
           >
             <Activity className="w-5 h-5 text-primary" />
@@ -165,9 +181,17 @@ export function CallStatusCard({ callState, logs }: CallStatusCardProps) {
         {/* Current Status */}
         <div className="p-4 rounded-xl bg-muted/30 border border-border/50 mb-4">
           <div className="flex items-center justify-between">
-            <span className="text-sm text-muted-foreground">Current Status</span>
+            <span className="text-sm text-muted-foreground">
+              Current Status
+            </span>
             <StatusBadge
-              status={callState === "idle" ? "ready" : callState === "calling" ? "calling" : "completed"}
+              status={
+                callState === "idle"
+                  ? "ready"
+                  : callState === "calling"
+                  ? "calling"
+                  : "completed"
+              }
             />
           </div>
         </div>
@@ -194,7 +218,7 @@ export function CallStatusCard({ callState, logs }: CallStatusCardProps) {
         {/* Call Logs */}
         <div className="space-y-3">
           {logs.length === 0 ? (
-            <motion.div 
+            <motion.div
               className="text-center py-8 text-muted-foreground"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -214,7 +238,7 @@ export function CallStatusCard({ callState, logs }: CallStatusCardProps) {
                   whileHover={{ x: 4 }}
                 >
                   <div className="flex items-center gap-3">
-                    <motion.div 
+                    <motion.div
                       className="p-1.5 rounded-lg bg-muted"
                       whileHover={{ scale: 1.1 }}
                     >

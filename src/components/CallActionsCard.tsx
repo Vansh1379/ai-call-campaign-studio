@@ -39,7 +39,7 @@ export function CallActionsCard({
   onPreviewScript,
 }: CallActionsCardProps) {
   return (
-    <motion.div 
+    <motion.div
       className="card-elevated card-glow relative"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
@@ -55,7 +55,8 @@ export function CallActionsCard({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             style={{
-              background: "radial-gradient(ellipse at center, hsl(var(--primary) / 0.15) 0%, transparent 70%)",
+              background:
+                "radial-gradient(ellipse at center, hsl(var(--primary) / 0.15) 0%, transparent 70%)",
             }}
           />
         )}
@@ -63,15 +64,19 @@ export function CallActionsCard({
 
       <div className="relative z-10">
         <div className="flex items-center gap-3 mb-6">
-          <motion.div 
+          <motion.div
             className="p-2.5 rounded-xl bg-gradient-to-br from-primary/20 to-accent/10 border border-primary/20"
-            animate={callState === "calling" ? {
-              boxShadow: [
-                "0 0 0px hsl(var(--primary) / 0)",
-                "0 0 30px hsl(var(--primary) / 0.4)",
-                "0 0 0px hsl(var(--primary) / 0)",
-              ],
-            } : {}}
+            animate={
+              callState === "calling"
+                ? {
+                    boxShadow: [
+                      "0 0 0px hsl(var(--primary) / 0)",
+                      "0 0 30px hsl(var(--primary) / 0.4)",
+                      "0 0 0px hsl(var(--primary) / 0)",
+                    ],
+                  }
+                : {}
+            }
             transition={{ duration: 1.5, repeat: Infinity }}
           >
             <Zap className="w-5 h-5 text-primary" />
@@ -158,11 +163,11 @@ export function CallActionsCard({
           </motion.button>
         </div>
 
-        <motion.p 
+        <motion.p
           className="helper-text mt-6 pt-5 border-t border-border/50"
           animate={{ opacity: callState === "calling" ? 1 : 0.7 }}
         >
-          {callState === "calling" 
+          {callState === "calling"
             ? "AI agent is currently on the call..."
             : "The AI uses the provided context to deliver a personalized sales pitch during the call."}
         </motion.p>

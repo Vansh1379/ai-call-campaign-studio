@@ -19,7 +19,7 @@ export function CallSetupCard({
   setCallType,
 }: CallSetupCardProps) {
   return (
-    <motion.div 
+    <motion.div
       className="card-elevated card-glow relative overflow-hidden"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
@@ -28,7 +28,11 @@ export function CallSetupCard({
     >
       {/* Waveform background */}
       <div className="absolute inset-0 opacity-5 pointer-events-none">
-        <svg className="w-full h-full" preserveAspectRatio="none" viewBox="0 0 100 40">
+        <svg
+          className="w-full h-full"
+          preserveAspectRatio="none"
+          viewBox="0 0 100 40"
+        >
           <motion.path
             d="M0,20 Q10,5 20,20 T40,20 T60,20 T80,20 T100,20"
             stroke="currentColor"
@@ -37,20 +41,29 @@ export function CallSetupCard({
             className="text-primary"
             initial={{ pathLength: 0 }}
             animate={{ pathLength: 1 }}
-            transition={{ duration: 2, repeat: Infinity, repeatType: "reverse" }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              repeatType: "reverse",
+            }}
           />
         </svg>
       </div>
 
       <div className="relative z-10">
         <div className="flex items-center gap-3 mb-6">
-          <motion.div 
+          <motion.div
             className="p-2.5 rounded-xl bg-gradient-to-br from-primary/20 to-accent/10 border border-primary/20"
             whileHover={{ scale: 1.05 }}
-            animate={{ 
-              boxShadow: callMyNumber || phoneNumber 
-                ? ["0 0 0px hsl(var(--primary) / 0)", "0 0 20px hsl(var(--primary) / 0.3)", "0 0 0px hsl(var(--primary) / 0)"]
-                : "none"
+            animate={{
+              boxShadow:
+                callMyNumber || phoneNumber
+                  ? [
+                      "0 0 0px hsl(var(--primary) / 0)",
+                      "0 0 20px hsl(var(--primary) / 0.3)",
+                      "0 0 0px hsl(var(--primary) / 0)",
+                    ]
+                  : "none",
             }}
             transition={{ duration: 2, repeat: Infinity }}
           >
@@ -84,13 +97,15 @@ export function CallSetupCard({
               value={phoneNumber}
               onChange={(e) => setPhoneNumber(e.target.value)}
               placeholder="+1 (555) 123-4567"
-              className={`input-field w-full ${callMyNumber ? 'opacity-50' : ''}`}
+              className={`input-field w-full ${
+                callMyNumber ? "opacity-50" : ""
+              }`}
               disabled={callMyNumber}
               whileFocus={{ scale: 1.01 }}
             />
           </div>
 
-          <motion.div 
+          <motion.div
             className="flex items-center gap-3 p-3 rounded-xl bg-muted/30 border border-border/50 cursor-pointer"
             onClick={() => setCallMyNumber(!callMyNumber)}
             whileHover={{ backgroundColor: "hsl(var(--muted) / 0.5)" }}
@@ -119,7 +134,11 @@ export function CallSetupCard({
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ type: "spring", stiffness: 500, damping: 25 }}
                 >
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M5 13l4 4L19 7"
+                  />
                 </motion.svg>
               )}
             </motion.button>
@@ -127,7 +146,9 @@ export function CallSetupCard({
               <span className="text-sm font-medium text-foreground">
                 Call my number instead
               </span>
-              <p className="text-xs text-muted-foreground">Demo mode - receive the call yourself</p>
+              <p className="text-xs text-muted-foreground">
+                Demo mode - receive the call yourself
+              </p>
             </div>
           </motion.div>
 
@@ -158,12 +179,13 @@ export function CallSetupCard({
           </div>
         </div>
 
-        <motion.p 
+        <motion.p
           className="helper-text mt-6 pt-5 border-t border-border/50"
           initial={{ opacity: 0.5 }}
           animate={{ opacity: phoneNumber || callMyNumber ? 1 : 0.5 }}
         >
-          The AI will place the call using an AI-managed phone number and speak on behalf of your business.
+          The AI will place the call using an AI-managed phone number and speak
+          on behalf of your business.
         </motion.p>
       </div>
     </motion.div>
