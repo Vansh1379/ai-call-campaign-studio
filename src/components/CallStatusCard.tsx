@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { Activity, Clock, CheckCircle2, Phone, MessageSquare, Mic } from "lucide-react";
+import { Activity, Clock, CheckCircle2, Phone, Mic } from "lucide-react";
 import { StatusBadge } from "./StatusBadge";
 import { useState, useEffect } from "react";
 

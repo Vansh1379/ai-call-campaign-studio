@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { PhoneCall, PhoneIncoming, FileText, Check, Loader2, Zap } from "lucide-react";
+import { PhoneCall, PhoneIncoming, FileText, Check, Zap } from "lucide-react";
 
 type CallState = "idle" | "calling" | "completed";
 

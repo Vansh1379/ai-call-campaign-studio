@@ -35,7 +35,6 @@ export function AIScriptPreviewModal({
   const [isSaving, setIsSaving] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
   
-  // Generate initial script based on context
   const generateScript = () => {
     const company = companyName || "Your Company";
     const description = companyDescription || "innovative solutions";
@@ -100,7 +99,7 @@ Thank you for your time today. Have a wonderful [day/evening]!`;
       setTimeout(() => {
         setIsCopied(false);
       }, 2000);
-    } catch (err) {
+    } catch (_err) {
       toast.error("Failed to copy script");
     }
   };
@@ -128,7 +127,6 @@ Thank you for your time today. Have a wonderful [day/evening]!`;
           </div>
         </DialogHeader>
 
-        {/* Context Summary */}
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
@@ -148,7 +146,6 @@ Thank you for your time today. Have a wonderful [day/evening]!`;
           </div>
         </motion.div>
 
-        {/* Script Editor */}
         <div className="flex-1 overflow-hidden flex flex-col">
           <div className="flex items-center justify-between mb-3">
             <label className="text-sm font-medium text-foreground">
@@ -193,7 +190,6 @@ Thank you for your time today. Have a wonderful [day/evening]!`;
           />
         </div>
 
-        {/* Actions */}
         <div className="flex items-center justify-between pt-4 border-t border-border/50">
           <Button
             variant="outline"
