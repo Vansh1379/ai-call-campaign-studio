@@ -1,15 +1,19 @@
+"use client";
+
 import { useState } from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { StatusBadge } from "@/components/StatusBadge";
 import { BusinessContextCard } from "@/components/BusinessContextCard";
 import { CallSetupCard } from "@/components/CallSetupCard";
 import { CallActionsCard } from "@/components/CallActionsCard";
 import { CallStatusCard } from "@/components/CallStatusCard";
-import { Zap, Sparkles } from "lucide-react";
+import { AIScriptPreviewModal } from "@/components/AIScriptPreviewModal";
+import { Sparkles } from "lucide-react";
 
 type CallState = "idle" | "calling" | "completed";
 
-const Index = () => {
+export default function Home() {
   // Business context state
   const [companyName, setCompanyName] = useState("");
   const [companyDescription, setCompanyDescription] = useState("");
@@ -40,6 +44,9 @@ const Index = () => {
     },
   ]);
 
+  // Modal state
+  const [isScriptModalOpen, setIsScriptModalOpen] = useState(false);
+
   const isReady = companyName && companyDescription && (phoneNumber || callMyNumber);
 
   const handleStartCall = () => {
@@ -68,7 +75,7 @@ const Index = () => {
   };
 
   const handlePreviewScript = () => {
-    console.log("Preview script clicked");
+    setIsScriptModalOpen(true);
   };
 
   return (
@@ -115,7 +122,13 @@ const Index = () => {
               whileHover={{ scale: 1.02 }}
             >
               <div className="p-2 rounded-xl bg-gradient-to-br from-primary/20 to-accent/10 border border-primary/20">
-                <Zap className="w-5 h-5 text-primary" />
+                <Image 
+                  src="/image.png" 
+                  alt="Paradigm Outreach Logo" 
+                  width={20} 
+                  height={20}
+                  className="w-5 h-5"
+                />
               </div>
               <span className="font-bold text-foreground text-lg">Paradigm Outreach</span>
             </motion.div>
@@ -239,8 +252,16 @@ const Index = () => {
           </div>
         </div>
       </main>
+
+      {/* AI Script Preview Modal */}
+      <AIScriptPreviewModal
+        open={isScriptModalOpen}
+        onOpenChange={setIsScriptModalOpen}
+        companyName={companyName}
+        companyDescription={companyDescription}
+        salesPitch={salesPitch}
+        tone={tone}
+      />
     </div>
   );
-};
-
-export default Index;
+}
