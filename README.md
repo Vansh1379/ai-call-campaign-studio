@@ -2,6 +2,8 @@
 
 > AI-powered outbound call campaign platform built with Next.js
 
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone)
+
 ## 🚀 Quick Start
 
 ```bash
